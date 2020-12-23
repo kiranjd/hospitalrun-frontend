@@ -32,7 +32,7 @@ type WrapperProps = {
   children?: ReactNode
 }
 
-const setup = async (
+const render = async (
   patient = expectedPatient,
   permissions = [Permissions.AddAllergy],
   route = '/patients/123/allergies',
@@ -59,7 +59,7 @@ describe('Allergies', () => {
 
   describe('add new allergy button', () => {
     it('should render a button to add new allergies', () => {
-      setup()
+      render()
 
       expect(
         screen.getByRole('button', {
@@ -69,7 +69,7 @@ describe('Allergies', () => {
     })
 
     it('should not render a button to add new allergies if the user does not have permissions', () => {
-      setup(expectedPatient, [])
+      render(expectedPatient, [])
 
       expect(
         screen.queryByRole('button', {
@@ -81,7 +81,7 @@ describe('Allergies', () => {
 
   describe('add new allergy modal ', () => {
     it('should open the new allergy modal when clicked', async () => {
-      setup(expectedPatient)
+      render(expectedPatient)
 
       userEvent.click(
         screen.getByRole('button', {
@@ -93,7 +93,7 @@ describe('Allergies', () => {
     })
 
     it('should add new allergy', async () => {
-      setup(expectedPatient)
+      render(expectedPatient)
       userEvent.click(
         screen.getByRole('button', {
           name: /patient\.allergies\.new/i,
@@ -125,7 +125,7 @@ describe('Allergies', () => {
 
   describe('allergy list', () => {
     it('should render allergies', async () => {
-      setup()
+      render()
 
       expect(
         screen.getAllByRole('button', {
